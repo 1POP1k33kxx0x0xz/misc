@@ -4,6 +4,7 @@ local function printTime(action)
 end
 
 syn.queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/1POP1k33kxx0x0xz/misc/main/wins.lua"))
+print(...)
 printTime(... and "Started" or "Joined")
 
 local runService = game:GetService("RunService")
