@@ -1,10 +1,10 @@
 local function printTime(action)
-    local formatDate = os.date("%I:%M %p", os.time())
+    local formatDate = os.date(" %I:%M %p", os.time())
     rconsoleprint(action..formatDate.."\n")
 end
 
 syn.queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/1POP1k33kxx0x0xz/misc/main/wins.lua"))
-printTime("Joined ")
+printTime("Joined")
 
 local runService = game:GetService("RunService")
 local players = game:GetService("Players")
@@ -45,7 +45,7 @@ end
 
 local function onKick()
     teleportService:Teleport(game.PlaceId)
-    printTime("Teleport attempted ")
+    printTime("Teleport attempted")
 end
 
 for _,child in ipairs(workspace:GetChildren()) do
