@@ -21,7 +21,7 @@ end
 local renderStepped = runService.RenderStepped
 local wins = localPlayer:WaitForChild("leaderstats"):WaitForChild("Wins")
 local prompts = coreGui:WaitForChild("RobloxPromptGui"):WaitForChild("promptOverlay")
-local toggleBool, connections, finishValue, spawn1, spawn2, head, namecall, finished = true, {}, 200000
+local toggleBool, connections, finishValue, spawn1, spawn2, head, namecall, finished = true, {}, 999990
 
 local function findCharacterPart()
     local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
