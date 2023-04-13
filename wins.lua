@@ -1,4 +1,7 @@
+local printTime = ({...})[1]
+
 syn.queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/1POP1k33kxx0x0xz/misc/main/wins.lua"))
+printTime("Joined ")
 
 local runService = game:GetService("RunService")
 local players = game:GetService("Players")
@@ -16,20 +19,6 @@ local renderStepped = runService.RenderStepped
 local wins = localPlayer:WaitForChild("leaderstats"):WaitForChild("Wins")
 local prompts = coreGui:WaitForChild("RobloxPromptGui"):WaitForChild("promptOverlay")
 local toggleBool, spawn1, spawn2, renderSteppedConnection, head, namecall = true
-
-local blackGui = Instance.new("ScreenGui")
-blackGui.DisplayOrder = -100
-blackGui.IgnoreGuiInset = true
-blackGui.ResetOnSpawn = false
-
-local frame = Instance.new("Frame")
-frame.Size = UDim2.new(1, 0, 1, 0)
-frame.BackgroundColor3 = Color3.new(0, 0, 0)
-frame.BorderSizePixel = 0
-frame.Parent = blackGui
-
-blackGui.Parent = coreGui
-runService:Set3dRenderingEnabled(false)
 
 local function findCharacterPart()
     local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
@@ -53,6 +42,7 @@ end
 
 local function onKick()
     teleportService:Teleport(game.PlaceId)
+    printTime("Teleport attempted ")
 end
 
 for _,child in ipairs(workspace:GetChildren()) do
@@ -64,6 +54,20 @@ for _,child in ipairs(workspace:GetChildren()) do
         end
     end
 end
+
+local blackGui = Instance.new("ScreenGui")
+blackGui.DisplayOrder = -100
+blackGui.IgnoreGuiInset = true
+blackGui.ResetOnSpawn = false
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(1, 0, 1, 0)
+frame.BackgroundColor3 = Color3.new(0, 0, 0)
+frame.BorderSizePixel = 0
+frame.Parent = blackGui
+
+blackGui.Parent = coreGui
+runService:Set3dRenderingEnabled(false)
 
 prompts.ChildAdded:Connect(onKick)
 teleportService.TeleportInitFailed:Connect(onKick)
