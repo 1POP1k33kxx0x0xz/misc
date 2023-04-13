@@ -21,7 +21,7 @@ end
 local renderStepped = runService.RenderStepped
 local wins = localPlayer:WaitForChild("leaderstats"):WaitForChild("Wins")
 local prompts = coreGui:WaitForChild("RobloxPromptGui"):WaitForChild("promptOverlay")
-local toggleBool, spawn1, spawn2, renderSteppedConnection, head, namecall = true
+local toggleBool, connections, finishValue, spawn1, spawn2, head, namecall, finished = true, {}, 200000
 
 local function findCharacterPart()
     local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
@@ -30,6 +30,8 @@ local function findCharacterPart()
 end
 
 local function addWin()
+    if finished then return end
+    
     local currentSpawn = toggleBool and spawn1 or spawn2
     head = head:IsAncestorOf(game) and head or findCharacterPart()
     
@@ -38,8 +40,15 @@ local function addWin()
     firetouchinterest(head, currentSpawn, 1)
     toggleBool = not toggleBool
     
-    if wins.Value >= 999990 then
-        renderSteppedConnection:Disconnect()
+    if wins.Value >= finishValue then
+        finished = true
+        
+        for _,connection in pairs(connections) do
+            connection:Disconnect()
+        end
+        
+        localPlayer:Kick("Finished!")
+        printTime("Finished")
     end
 end
 
@@ -72,7 +81,7 @@ frame.Parent = blackGui
 blackGui.Parent = coreGui
 runService:Set3dRenderingEnabled(false)
 
-prompts.ChildAdded:Connect(onKick)
-teleportService.TeleportInitFailed:Connect(onKick)
+connections.Kicked = prompts.ChildAdded:Connect(onKick)
+connections.TeleportInitFailed = teleportService.TeleportInitFailed:Connect(onKick)
 head = findCharacterPart()
-renderSteppedConnection = renderStepped:Connect(addWin)
+connections.RenderStepped = renderStepped:Connect(addWin)
