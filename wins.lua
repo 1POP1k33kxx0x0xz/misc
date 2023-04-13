@@ -1,4 +1,7 @@
-local printTime = ({...})[1]
+local function printTime(action)
+    local formatDate = os.date("%I:%M %p", os.time())
+    rconsoleprint(action..formatDate.."\n")
+end
 
 syn.queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/1POP1k33kxx0x0xz/misc/main/wins.lua"))
 printTime("Joined ")
