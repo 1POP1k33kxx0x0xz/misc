@@ -52,7 +52,7 @@ local function addWin()
 end
 
 local function onKick()
-    teleportService:TeleportAsync(game.PlaceId, localPlayer)
+    teleportService:TeleportAsync(game.PlaceId, {localPlayer})
 end
 
 for _,child in ipairs(workspace:GetChildren()) do
