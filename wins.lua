@@ -21,7 +21,7 @@ end
 local renderStepped = runService.RenderStepped
 local wins = localPlayer:WaitForChild("leaderstats"):WaitForChild("Wins")
 local prompts = coreGui:WaitForChild("RobloxPromptGui"):WaitForChild("promptOverlay")
-local toggleBool, connections, finishValue, spawn1, spawn2, head, namecall, finished = true, {}, 999990
+local toggleBool, connections, finishValue, spawn1, spawn2, head, namecall = true, {}, 846000
 
 local function findCharacterPart()
     local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
@@ -30,7 +30,14 @@ local function findCharacterPart()
 end
 
 local function addWin()
-    if finished then return end
+    if wins.Value >= finishValue then
+        for _,connection in pairs(connections) do
+            connection:Disconnect()
+        end
+        
+        localPlayer:Kick("Finished!")
+        printTime("Finished")
+    end
     
     local currentSpawn = toggleBool and spawn1 or spawn2
     head = head:IsAncestorOf(game) and head or findCharacterPart()
@@ -39,17 +46,6 @@ local function addWin()
     renderStepped:Wait()
     firetouchinterest(head, currentSpawn, 1)
     toggleBool = not toggleBool
-    
-    if wins.Value >= finishValue then
-        finished = true
-        
-        for _,connection in pairs(connections) do
-            connection:Disconnect()
-        end
-        
-        localPlayer:Kick("Finished!")
-        printTime("Finished")
-    end
 end
 
 local function onKick()
